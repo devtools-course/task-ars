@@ -1,0 +1,136 @@
+= Archives
+
+:icons: font
+
+> Branch: `ars` +
+> Fenrir ID: `ars` +
+> Points: `25`
+
+Your solution must be located at `ars`:
+
+[,text,subs="+macros"]
+----
+icon:folder[] ...
+├─ icon:folder[] ars
+│  ├─ icon:file-code[] part-1.sh
+│  ├─ icon:file-code[] part-2.sh
+│  ├─ icon:file-code[] part-3.sh
+│  └─ icon:file-code[] part-4.sh
+└─ icon:folder[] .git
+----
+
+== Create archives (5 points)
+
+Create a script `part-1.sh` which assembles files into an archive or compresses them.
+
+Archivation::
+`./part-1.sh -a _NAME_ _FILES_...`  --  Creates an archive `_NAME_` which contains all the provided files.
+
+Compression::
+`./part-1.sh -z _DIR_ _FILES_...`  --  Compresses each file (gzip format) and puts the result into the `_DIR_` directory. Add `.gz` prefix to the resulting file name.
+
+=== Error handling
+
+If any arguments are missing, exit with a code `11`.
+
+=== Questions
+
+* What is the difference between compression and archivation?
+
+== Format recognition (5 points)
+
+When running `tar xf _ARCHIVE_`, it can automatically infer the compression format itself. Create a script `part-2.sh` which takes the path to a compressed archive and prints the used algorithm. Use must support these formats: `gz`, `bz2`, `xz`, `zst`.
+
+Archivation::
+`./part-1.sh -a _NAME_ _FILES_...`  --  Creates an archive `_NAME_` which contains all the provided files.
+
+Compression::
+`./part-1.sh -z _DIR_ _FILES_...`  --  Compresses each file (gzip format) and puts the result into the `_DIR_` directory. Add `.gz` prefix to the resulting file name.
+
+=== Error handling
+
+Is not needed. We guarantee the correctness of the input data.
+
+=== Questions
+
+* How to create a `.tar.gz` file? `.tar.bz2`? `.tar.xz`? `.tar.zst`?
+* How does `tar` identify the compression format when no extension is provided?
+
+== `[` command for archives (10 points)
+
+Create a script `part-3.sh` which implements a `L` command (something like `[`]):
+
+[,bash]
+----
+L -e ARCHIVE J # ARCHIVE is empty
+L ARCHIVE -sz 7 J # ARCHIVE has exactly 7 files
+L ARCHIVE -has FILE J # ARCHIVE contains FILE
+----
+
+`L` and `J` are equivalents for `[` and `]`. The command must not print anything to the stdout, however the errors must be logged to the stderr.
+
+The script's behaviour is expected to be similar to the `[`: when the condition is true `if L .. J; then .. fi` must be executed, whereas it is false the `if`{empty}'s body must be skipped.
+
+Your script will be installed as `L` to the `PATH` during the tests and verified accordingly.
+
+=== Error handling
+
+[%autowidth]
+|===
+h| Code h| Description
+
+| 33 | Parsing error
+| 34 | The provided archive does not exist
+| 35 | The second argument in `-sz` is not a number
+
+|===
+
+=== Questions
+
+* How to list all the files an array contains without extracting it?
+
+== Install applications (5 points)
+
+Application for Linux are often distributed as a `.tar.gz` files. Create a script `part-4.sh` which takes a path to an archive and installs the application it contains.
+
+Those archives usually follow this structure:
+
+[,text,subs="+macros"]
+----
+icon:folder[] APPNAME
+├─ icon:folder[] bin
+│  ├─ icon:file-code[] ..
+│  └─ icon:file-code[] APP
+├─ icon:folder[] lib
+│  └─ icon:file-code[] ..
+└─ icon:folder[] ..
+----
+
+The `APP` is the binary which is executed to start the app.
+
+The `APPNAME` during the tests is always `app`.
+
+.Requirements
+. The application must be installed to the `/opt` directory
+. The script is executed under non-privileged user. His password is pass through the `PASS` env variable
+. The script will be `source`{empty}d: you may update the env so that the app can be invoked in terminal
+
+=== Error handling
+
+Is not needed. We guarantee the correctness of the input data.
+
+=== Questions
+
+* Why is the path to the `APPNAME` directory usually stored in a `APPNAME_HOME` env variable?
+* How to pass a password to `sudo` in scripts?
+
+== Copyright
+
+pass:[<i class="fab fa-creative-commons"></i>]
+pass:[<i class="fab fa-creative-commons-by"></i>]
+pass:[<i class="fab fa-creative-commons-nc"></i>]
+pass:[<i class="fab fa-creative-commons-sa"></i>]
+
+The project is licensed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+
+(C) 2026-present *Iwan Kalinin* <mailto:koefic.cien@gmail.com[koefic.cien@gmail.com]>
