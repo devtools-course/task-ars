@@ -41,12 +41,6 @@ If any arguments are missing, exit with a code `11`.
 
 When running `tar xf _ARCHIVE_`, it can automatically infer the compression format itself. Create a script `part-2.sh` which takes the path to a compressed archive and prints the used algorithm. Use must support these formats: `gz`, `bz2`, `xz`, `zst`.
 
-Archivation::
-`./part-1.sh -a _NAME_ _FILES_...`  --  Creates an archive `_NAME_` which contains all the provided files.
-
-Compression::
-`./part-1.sh -z _DIR_ _FILES_...`  --  Compresses each file (gzip format) and puts the result into the `_DIR_` directory. Add `.gz` prefix to the resulting file name.
-
 === Error handling
 
 Is not needed. We guarantee the correctness of the input data.
