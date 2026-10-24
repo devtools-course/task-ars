@@ -111,7 +111,7 @@ The `APPNAME` during the tests is always `app`.
 
 === Error handling
 
-Is not needed. We guarantee the correctness of the input data.
+When the provided archive does not exist, exit with code `44`.
 
 === Questions
 
